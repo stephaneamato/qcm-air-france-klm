@@ -1,0 +1,799 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2299.77">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="fr"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;QCM Air France-KLM&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; padding: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container { max-width: 800px; margin: 50px auto; padding: 20px; background: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.question { font-size: 20px; margin-bottom: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.options { list-style: none; padding: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.option { margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.option button { width: 100%; padding: 10px; font-size: 18px; background: #007bff; color: #fff; border: none; cursor: pointer; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.option button:hover { background: #0056b3; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.feedback { margin-top: 20px; font-size: 18px; color: #333; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score { margin-top: 20px; font-size: 22px; font-weight: bold; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="question"&gt;La question apparaîtra ici&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul class="options"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li class="option"&gt;&lt;button onclick="checkAnswer(0)"&gt;Option A&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li class="option"&gt;&lt;button onclick="checkAnswer(1)"&gt;Option B&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li class="option"&gt;&lt;button onclick="checkAnswer(2)"&gt;Option C&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li class="option"&gt;&lt;button onclick="checkAnswer(3)"&gt;Option D&lt;/button&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="feedback"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="score"&gt;Score : 0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let questions = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "En quelle année a eu lieu la fusion entre Air France et KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["2000", "2004", "2010", "2015"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette fusion a eu lieu au début du 21ème siècle, peu après l'an 2000."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la structure juridique d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Société Anonyme", "Société à Responsabilité Limitée", "Coopérative", "Association"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette structure est courante pour les grandes entreprises cotées en bourse en France."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal hub d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Aéroport de Paris-Orly", "Aéroport de Schiphol", "Aéroport de Paris-Charles-de-Gaulle", "Aéroport de Lyon-Saint Exupéry"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cet aéroport est l'un des plus grands d'Europe et sert principalement de hub pour Air France."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la flotte principale utilisée par Air France pour les vols long-courriers ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Airbus A320", "Boeing 737", "Boeing 777", "Airbus A380"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cet avion est souvent utilisé pour les vols transatlantiques."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle entité détient la majorité des actions d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Gouvernement français", "Gouvernement néerlandais", "Investisseurs privés", "Particuliers"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette entité est un acteur important dans les décisions stratégiques du groupe."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "À quelle alliance mondiale appartient Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Star Alliance", "oneworld", "SkyTeam", "Aucun"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette alliance inclut également Delta Air Lines et Korean Air."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le code IATA d'Air France ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["AF", "KL", "FR", "AK"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le code IATA de cette compagnie est également utilisé dans son nom de marque."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la filiale low-cost d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Transavia", "HOP!", "Joon", "KLM Cityhopper"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette filiale est connue pour ses vols à bas prix vers des destinations européennes."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le siège social d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Paris", "Amsterdam", "Roissy-en-France", "Schiphol"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le siège social est situé près de l'un des principaux hubs de la compagnie en France."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "En quelle année Air France a-t-elle été fondée ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1933", "1945", "1950", "1963"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La fondation de cette compagnie a eu lieu avant la Seconde Guerre mondiale."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale filiale régionale d'Air France ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Air Corsica", "Air France Hop", "Transavia France", "La Navette"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette filiale assure des vols courts et régionaux sous une marque associée à Air France."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal marché cible d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Europe", "Asie", "Amérique du Nord", "Afrique"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce marché est le plus proche géographiquement et historiquement important pour les deux compagnies."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la part de marché d'Air France-KLM en termes de passagers transportés en Europe ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["10%", "20%", "30%", "40%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette part est significativement élevée, faisant du groupe l'un des leaders européens."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel programme de fidélité est proposé par Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Miles &amp; More", "Flying Blue", "SkyMiles", "Avios"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce programme permet de cumuler des miles utilisables sur plusieurs compagnies de l'alliance SkyTeam."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Qui est l'actuel PDG d'Air France-KLM (à vérifier pour mise à jour) ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Benjamin Smith", "Jean-Marc Janaillac", "Alexandre de Juniac", "Anne Rigail"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le PDG actuel a pris ses fonctions en 2018, après une carrière chez Air Canada."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le slogan actuel d'Air France ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Faire du ciel le plus bel endroit de la terre", "Vous faire voyager avec passion", "Envolez-vous avec nous", "Voyagez plus loin"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce slogan met en avant l'expérience de voyage unique offerte par la compagnie."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale destination long-courrier desservie par Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["New York", "Tokyo", "Rio de Janeiro", "Johannesburg"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette destination est un important centre financier et culturel en Amérique du Nord."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel type d'avion Air France utilise-t-elle pour ses vols les plus longs ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Airbus A320", "Boeing 737", "Boeing 787", "Airbus A330"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cet avion est connu pour sa grande autonomie et son efficacité énergétique."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "En quelle année KLM a-t-elle été fondée ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1919", "1925", "1930", "1945"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "KLM est l'une des plus anciennes compagnies aériennes au monde, fondée juste après la Première Guerre mondiale."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale couleur de la livrée d'Air France ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Bleu", "Rouge", "Blanc", "Vert"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette couleur est souvent associée à la France et apparaît sur le drapeau national."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal partenaire de joint-venture d'Air France-KLM pour les vols transatlantiques ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Delta Air Lines", "British Airways", "Lufthansa", "Emirates"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce partenaire est également membre de l'alliance SkyTeam."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal fournisseur d'avions d'Air France ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Airbus", "Boeing", "Bombardier", "Embraer"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce constructeur est basé en Europe et est un concurrent majeur de Boeing."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre total d'employés d'Air France-KLM (à vérifier pour mise à jour) ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["50 000", "80 000", "100 000", "120 000"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le nombre total d'employés est supérieur à 80 000 mais inférieur à 100 000."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la destination la plus récente ajoutée par Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["San Francisco", "Nairobi", "Bangkok", "Mumbai"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette destination se trouve en Asie et est une ville importante sur le plan économique."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la fréquence des vols quotidiens d'Air France entre Paris et New York ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["2", "4", "6", "8"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La fréquence des vols est élevée, reflétant l'importance de cette route."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "En quelle année Air France a-t-elle introduit son programme de fidélité Flying Blue ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1999", "2005", "2010", "2015"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce programme a été lancé un an après la fusion avec KLM."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal objectif stratégique d'Air France-KLM en termes de développement durable ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réduire les émissions de CO2", "Augmenter le nombre de destinations", "Améliorer le service client", "Réduire les coûts opérationnels"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cet objectif est crucial pour lutter contre le changement climatique."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la part de marché d'Air France-KLM dans le transport aérien mondial ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["2%", "5%", "10%", "15%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette part de marché est inférieure à 10% mais représente une portion significative du marché."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal atout concurrentiel d'Air France-KLM selon sa stratégie d'entreprise ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Prix bas", "Service de qualité", "Réseau étendu", "Innovation technologique"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cet atout repose sur la capacité à connecter de nombreuses destinations à travers le monde."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre de passagers transportés par Air France-KLM en 2019 ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["50 millions", "80 millions", "100 millions", "150 millions"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le nombre de passagers est supérieur à 80 millions mais inférieur à 100 millions."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique bagages d'Air France pour la classe économique ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1 bagage de 20kg", "1 bagage de 23kg", "1 bagage de 25kg", "1 bagage de 30kg"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La limite de poids est standard pour la plupart des compagnies aériennes."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre d'avions dans la flotte d'Air France-KLM (à vérifier pour mise à jour) ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["200", "400", "600", "800"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La flotte est composée de plus de 400 avions mais moins de 800."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal produit vendu par Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Billets d'avion", "Voyages organisés", "Assurance voyage", "Services de cargo"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce produit est la principale source de revenus de la compagnie."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de remboursement d'Air France-KLM en cas d'annulation de vol ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Remboursement complet", "Bon d'achat pour un futur vol", "Aucun remboursement", "Remboursement partiel"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique est favorable aux passagers et vise à maintenir la satisfaction client."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la durée moyenne des vols court-courriers d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1 heure", "2 heures", "3 heures", "4 heures"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La durée est généralement inférieure à 3 heures."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la durée moyenne des vols long-courriers d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["6 heures", "8 heures", "10 heures", "12 heures"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La durée est généralement supérieure à 8 heures mais inférieure à 12 heures."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal partenaire stratégique d'Air France-KLM en Asie ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Cathay Pacific", "Singapore Airlines", "China Eastern Airlines", "Japan Airlines"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce partenaire est membre de SkyTeam et basé en Chine."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal partenaire stratégique d'Air France-KLM en Amérique du Sud ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["LATAM Airlines", "Avianca", "GOL", "Aeromexico"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce partenaire est membre de SkyTeam et basé au Mexique."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le pourcentage de vols d'Air France-KLM opérés en partage de code ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["10%", "20%", "30%", "40%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le pourcentage est significatif, se situant entre 20% et 40%."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre d'escales effectuées par Air France-KLM chaque jour ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1 000", "2 000", "3 000", "4 000"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le nombre est supérieur à 2 000 mais inférieur à 4 000."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal service de maintenance d'avions d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Air France Industries", "KLM Engineering &amp; Maintenance", "Lufthansa Technik", "Swissport"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce service combine les expertises d'Air France et KLM."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale source de revenus complémentaires pour Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Frais de bagages", "Vente à bord", "Frais de changement de billet", "Programmes de fidélité"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette source de revenus est liée aux services additionnels offerts aux passagers."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal marché de fret d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Europe", "Asie", "Amérique du Nord", "Amérique du Sud"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce marché est le plus important en termes de volume de fret transporté."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale raison de la ponctualité des vols d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Gestion efficace des opérations", "Conditions météorologiques favorables", "Moins de congestion aéroportuaire", "Vols courts"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La gestion des opérations est optimisée pour réduire les retards."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des retards d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Communication proactive", "Offrir des compensations financières", "Réacheminer les passagers sur d'autres vols", "Offrir des repas gratuits"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à minimiser l'impact des retards sur les passagers."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal défi auquel Air France-KLM fait face ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Concurrence accrue", "Augmentation des coûts du carburant", "Réglementations environnementales", "Pénurie de pilotes"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce défi est en grande partie dû à la montée des compagnies low-cost et des compagnies du Golfe."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la stratégie d'Air France-KLM pour faire face à la concurrence des compagnies low-cost ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réduction des coûts", "Amélioration du service client", "Développement de la flotte", "Création de filiales low-cost"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la création de marques telles que Transavia."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la part de marché d'Air France-KLM en termes de fret aérien en Europe ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["10%", "20%", "30%", "40%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette part de marché est significativement élevée, reflétant l'importance du secteur cargo."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal objectif d'Air France-KLM en matière de responsabilité sociale des entreprises (RSE) ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réduction des émissions de CO2", "Augmentation du nombre de destinations", "Amélioration des conditions de travail", "Augmentation des profits"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cet objectif est crucial pour le développement durable de l'entreprise."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale innovation technologique mise en œuvre par Air France-KLM pour améliorer l'expérience passager ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Wi-Fi à bord", "Divertissement à la demande", "Self check-in", "Applications mobiles"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette innovation permet aux passagers de rester connectés pendant le vol."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de diversité et d'inclusion ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Promotion de l'égalité des genres", "Mise en place de quotas", "Formation à la diversité", "Recrutement international"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à promouvoir l'égalité des chances pour tous les employés."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le taux de ponctualité moyen des vols d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["75%", "80%", "85%", "90%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce taux est généralement supérieur à 80%."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale stratégie marketing d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Publicité", "Promotions et offres spéciales", "Partenariats", "Réseaux sociaux"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la collaboration avec d'autres entreprises pour offrir des avantages exclusifs."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des réclamations d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réponse sous 24 heures", "Compensation financière", "Enquête interne", "Service client dédié"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à traiter rapidement et efficacement les plaintes des clients."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale raison de la satisfaction des passagers d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Confort à bord", "Ponctualité", "Service client", "Prix compétitifs"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette raison est liée à la qualité des sièges et des services offerts pendant le vol."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de formation des pilotes d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Formation continue", "Cours en ligne", "Stages à l'étranger", "Simulations de vol"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à maintenir un haut niveau de compétence et de sécurité."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale raison de la fidélité des clients d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Programme de fidélité", "Réseau étendu", "Service client", "Prix compétitifs"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette raison est liée à la possibilité de cumuler des miles et de bénéficier d'avantages exclusifs."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des risques d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Audit interne", "Assurance tous risques", "Plan de continuité des activités", "Formation à la gestion des crises"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à garantir la résilience de l'entreprise face aux imprévus."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale source de revenus d'Air France-KLM en dehors de la vente de billets ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Fret aérien", "Services à bord", "Publicité", "Partenariats"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette source de revenus est cruciale pour le transport de marchandises à l'international."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de gestion de la qualité ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Certification ISO", "Enquêtes de satisfaction", "Audits réguliers", "Formation du personnel"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à maintenir des standards élevés à travers des processus certifiés."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale stratégie de développement international d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Acquisition de compagnies aériennes", "Expansion des routes", "Partenariats stratégiques", "Investissements technologiques"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la collaboration avec d'autres compagnies pour étendre le réseau."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de sécurité des passagers ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Contrôles de sécurité renforcés", "Formation du personnel", "Surveillance vidéo", "Partenariat avec les autorités"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à garantir la sûreté des vols à travers une collaboration avec les autorités."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale mesure prise par Air France-KLM pour réduire son empreinte carbone ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Utilisation de carburants alternatifs", "Réduction du poids des avions", "Optimisation des routes de vol", "Recyclage à bord"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette mesure est liée à l'utilisation de nouvelles technologies pour diminuer les émissions."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des talents d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Recrutement international", "Formation continue", "Programmes de mentorat", "Plans de carrière personnalisés"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à développer les compétences des employés à travers des formations régulières."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale innovation en matière de services à bord introduite par Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Menus gastronomiques", "Sièges inclinables", "Wi-Fi à bord", "Divertissement à la demande"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette innovation permet aux passagers de rester connectés pendant le vol."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de protection des données personnelles ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Conformité au RGPD", "Cryptage des données", "Audits de sécurité", "Formation du personnel"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à respecter les régulations européennes sur la protection des données."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la stratégie d'Air France-KLM pour attirer les clients d'affaires ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Services exclusifs", "Réductions sur les billets", "Programmes de fidélité", "Offres de partenariat"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la création de services dédiés aux besoins des voyageurs d'affaires."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale mesure de sécurité en vol d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Contrôles de sécurité renforcés", "Présence de personnel formé à la gestion des crises", "Surveillance vidéo", "Protocoles d'évacuation"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette mesure est liée à la formation continue du personnel pour faire face aux situations d'urgence."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des relations clients d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Service client dédié", "Enquêtes de satisfaction", "Programmes de fidélité", "Offres spéciales"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à assurer une communication constante et efficace avec les clients."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nom du programme de fidélité d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Flying Blue", "SkyMiles", "Executive Club", "Miles &amp; More"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce programme permet de cumuler des miles utilisables sur plusieurs compagnies de l'alliance SkyTeam."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le slogan actuel d'Air France ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Faire du ciel le plus bel endroit de la terre", "Vous faire voyager avec passion", "Envolez-vous avec nous", "Voyagez plus loin"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce slogan met en avant l'expérience de voyage unique offerte par la compagnie."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la classe de voyage premium d'Air France appelée ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["La Première", "Business Class", "Premium Economy", "Economy Class"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette classe offre des services exclusifs et personnalisés à bord."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal concurrent européen d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Lufthansa", "British Airways", "Iberia", "Alitalia"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce concurrent est également membre de Star Alliance."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Combien de destinations internationales Air France-KLM dessert-elle ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["50", "100", "200", "300"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le nombre de destinations est supérieur à celui de la majorité des compagnies aériennes mondiales."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre de passagers transportés par Air France-KLM en 2019 ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["50 millions", "80 millions", "100 millions", "150 millions"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le nombre de passagers est supérieur à 80 millions mais inférieur à 100 millions."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le chiffre d'affaires annuel d'Air France-KLM (à vérifier pour mise à jour) ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["20 milliards d'euros", "30 milliards d'euros", "40 milliards d'euros", "50 milliards d'euros"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le chiffre d'affaires est supérieur à 20 milliards mais inférieur à 50 milliards d'euros."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nom de la filiale cargo d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Air France Cargo", "KLM Cargo", "Martinair Cargo", "Air France-KLM Cargo"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette filiale combine les services de cargo des deux compagnies."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique environnementale d'Air France-KLM en termes de réduction des émissions de CO2 ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réduire de 10% d'ici 2030", "Réduire de 20% d'ici 2030", "Réduire de 50% d'ici 2030", "Réduire de 80% d'ici 2030"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La réduction visée est significative mais réaliste, se situant entre 10% et 50%."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la fréquence des vols quotidiens d'Air France entre Paris et Londres ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["2", "4", "6", "8"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La fréquence des vols est élevée, reflétant l'importance de cette route."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre total de destinations desservies par KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["50", "100", "150", "200"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le nombre de destinations est supérieur à 100 mais inférieur à 200."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique bagages d'Air France pour la classe économique ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1 bagage de 20kg", "1 bagage de 23kg", "1 bagage de 25kg", "1 bagage de 30kg"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La limite de poids est standard pour la plupart des compagnies aériennes."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre d'avions dans la flotte d'Air France-KLM (à vérifier pour mise à jour) ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["200", "400", "600", "800"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La flotte est composée de plus de 400 avions mais moins de 800."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal produit vendu par Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Billets d'avion", "Voyages organisés", "Assurance voyage", "Services de cargo"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce produit est la principale source de revenus de la compagnie."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de remboursement d'Air France-KLM en cas d'annulation de vol ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Remboursement complet", "Bon d'achat pour un futur vol", "Aucun remboursement", "Remboursement partiel"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique est favorable aux passagers et vise à maintenir la satisfaction client."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la durée moyenne des vols court-courriers d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1 heure", "2 heures", "3 heures", "4 heures"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La durée est généralement inférieure à 3 heures."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la durée moyenne des vols long-courriers d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["6 heures", "8 heures", "10 heures", "12 heures"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La durée est généralement supérieure à 8 heures mais inférieure à 12 heures."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal partenaire stratégique d'Air France-KLM en Asie ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Cathay Pacific", "Singapore Airlines", "China Eastern Airlines", "Japan Airlines"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce partenaire est membre de SkyTeam et basé en Chine."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal partenaire stratégique d'Air France-KLM en Amérique du Sud ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["LATAM Airlines", "Avianca", "GOL", "Aeromexico"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce partenaire est membre de SkyTeam et basé au Mexique."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le pourcentage de vols d'Air France-KLM opérés en partage de code ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["10%", "20%", "30%", "40%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le pourcentage est significatif, se situant entre 20% et 40%."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le nombre d'escales effectuées par Air France-KLM chaque jour ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["1 000", "2 000", "3 000", "4 000"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Le nombre est supérieur à 2 000 mais inférieur à 4 000."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal service de maintenance d'avions d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Air France Industries", "KLM Engineering &amp; Maintenance", "Lufthansa Technik", "Swissport"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce service combine les expertises d'Air France et KLM."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale source de revenus complémentaires pour Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Frais de bagages", "Vente à bord", "Frais de changement de billet", "Programmes de fidélité"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette source de revenus est liée aux services additionnels offerts aux passagers."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal marché de fret d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Europe", "Asie", "Amérique du Nord", "Amérique du Sud"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce marché est le plus important en termes de volume de fret transporté."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale raison de la ponctualité des vols d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Gestion efficace des opérations", "Conditions météorologiques favorables", "Moins de congestion aéroportuaire", "Vols courts"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "La gestion des opérations est optimisée pour réduire les retards."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des retards d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Communication proactive", "Offrir des compensations financières", "Réacheminer les passagers sur d'autres vols", "Offrir des repas gratuits"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à minimiser l'impact des retards sur les passagers."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal défi auquel Air France-KLM fait face ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Concurrence accrue", "Augmentation des coûts du carburant", "Réglementations environnementales", "Pénurie de pilotes"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce défi est en grande partie dû à la montée des compagnies low-cost et des compagnies du Golfe."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la stratégie d'Air France-KLM pour faire face à la concurrence des compagnies low-cost ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réduction des coûts", "Amélioration du service client", "Développement de la flotte", "Création de filiales low-cost"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la création de marques telles que Transavia."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la part de marché d'Air France-KLM en termes de fret aérien en Europe ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["10%", "20%", "30%", "40%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette part de marché est significativement élevée, reflétant l'importance du secteur cargo."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le principal objectif d'Air France-KLM en matière de responsabilité sociale des entreprises (RSE) ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réduction des émissions de CO2", "Augmentation du nombre de destinations", "Amélioration des conditions de travail", "Augmentation des profits"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cet objectif est crucial pour le développement durable de l'entreprise."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale innovation technologique mise en œuvre par Air France-KLM pour améliorer l'expérience passager ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Wi-Fi à bord", "Divertissement à la demande", "Self check-in", "Applications mobiles"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette innovation permet aux passagers de rester connectés pendant le vol."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de diversité et d'inclusion ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Promotion de l'égalité des genres", "Mise en place de quotas", "Formation à la diversité", "Recrutement international"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à promouvoir l'égalité des chances pour tous les employés."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quel est le taux de ponctualité moyen des vols d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["75%", "80%", "85%", "90%"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Ce taux est généralement supérieur à 80%."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale stratégie marketing d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Publicité", "Promotions et offres spéciales", "Partenariats", "Réseaux sociaux"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la collaboration avec d'autres entreprises pour offrir des avantages exclusifs."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des réclamations d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Réponse sous 24 heures", "Compensation financière", "Enquête interne", "Service client dédié"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à traiter rapidement et efficacement les plaintes des clients."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale raison de la satisfaction des passagers d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Confort à bord", "Ponctualité", "Service client", "Prix compétitifs"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette raison est liée à la qualité des sièges et des services offerts pendant le vol."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de formation des pilotes d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Formation continue", "Cours en ligne", "Stages à l'étranger", "Simulations de vol"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à maintenir un haut niveau de compétence et de sécurité."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale raison de la fidélité des clients d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Programme de fidélité", "Réseau étendu", "Service client", "Prix compétitifs"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette raison est liée à la possibilité de cumuler des miles et de bénéficier d'avantages exclusifs."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des risques d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Audit interne", "Assurance tous risques", "Plan de continuité des activités", "Formation à la gestion des crises"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à garantir la résilience de l'entreprise face aux imprévus."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale source de revenus d'Air France-KLM en dehors de la vente de billets ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Fret aérien", "Services à bord", "Publicité", "Partenariats"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette source de revenus est cruciale pour le transport de marchandises à l'international."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de gestion de la qualité ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Certification ISO", "Enquêtes de satisfaction", "Audits réguliers", "Formation du personnel"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à maintenir des standards élevés à travers des processus certifiés."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale stratégie de développement international d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Acquisition de compagnies aériennes", "Expansion des routes", "Partenariats stratégiques", "Investissements technologiques"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la collaboration avec d'autres compagnies pour étendre le réseau."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de sécurité des passagers ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Contrôles de sécurité renforcés", "Formation du personnel", "Surveillance vidéo", "Partenariat avec les autorités"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à garantir la sûreté des vols à travers une collaboration avec les autorités."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale mesure prise par Air France-KLM pour réduire son empreinte carbone ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Utilisation de carburants alternatifs", "Réduction du poids des avions", "Optimisation des routes de vol", "Recyclage à bord"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette mesure est liée à l'utilisation de nouvelles technologies pour diminuer les émissions."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des talents d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Recrutement international", "Formation continue", "Programmes de mentorat", "Plans de carrière personnalisés"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à développer les compétences des employés à travers des formations régulières."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale innovation en matière de services à bord introduite par Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Menus gastronomiques", "Sièges inclinables", "Wi-Fi à bord", "Divertissement à la demande"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette innovation permet aux passagers de rester connectés pendant le vol."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique d'Air France-KLM en matière de protection des données personnelles ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Conformité au RGPD", "Cryptage des données", "Audits de sécurité", "Formation du personnel"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à respecter les régulations européennes sur la protection des données."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la stratégie d'Air France-KLM pour attirer les clients d'affaires ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Services exclusifs", "Réductions sur les billets", "Programmes de fidélité", "Offres de partenariat"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette stratégie implique la création de services dédiés aux besoins des voyageurs d'affaires."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la principale mesure de sécurité en vol d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Contrôles de sécurité renforcés", "Présence de personnel formé à la gestion des crises", "Surveillance vidéo", "Protocoles d'évacuation"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 1,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette mesure est liée à la formation continue du personnel pour faire face aux situations d'urgence."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>question: "Quelle est la politique de gestion des relations clients d'Air France-KLM ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>options: ["Service client dédié", "Enquêtes de satisfaction", "Programmes de fidélité", "Offres spéciales"],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>answer: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>hint: "Cette politique vise à assurer une communication constante et efficace avec les clients."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let currentQuestionIndex = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let score = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function loadQuestion() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let q = questions[currentQuestionIndex];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelector('.question').textContent = q.question;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.option button').forEach((btn, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.textContent = q.options[index];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelector('.feedback').textContent = '';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function checkAnswer(selectedIndex) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let q = questions[currentQuestionIndex];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (selectedIndex === q.answer) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>score++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.feedback').textContent = 'Correct !';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.score').textContent = 'Score : ' + score;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentQuestionIndex++;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (currentQuestionIndex &lt; questions.length) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setTimeout(loadQuestion, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>document.querySelector('.container').innerHTML = 'QCM terminé ! Votre score final est de ' + score;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelector('.feedback').textContent = q.hint;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.querySelectorAll('.option button')[selectedIndex].disabled = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>loadQuestion();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
